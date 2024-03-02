@@ -21,8 +21,10 @@ public class Movie {
     private Date screeningDate;
     private String screeningTime;
 
+    private String language;
 
-    public Movie(Long id, String title, String genre, int numSeats, int ageRating, Date screeningDate, String screeningTime) {
+
+    public Movie(Long id, String title, String genre, int numSeats, int ageRating, Date screeningDate, String screeningTime, String language) {
         this.id = id;
         this.title = title;
         this.genre = genre;
@@ -30,6 +32,7 @@ public class Movie {
         this.ageRating = ageRating;
         this.screeningDate = screeningDate;
         this.screeningTime = screeningTime;
+        this.language = language;
     }
 
     public Movie() {
@@ -91,4 +94,12 @@ public class Movie {
     public void setAgeRating(int ageRating) {
         this.ageRating = ageRating;
     }
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
 }
