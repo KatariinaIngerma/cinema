@@ -1,6 +1,8 @@
 import {useEffect, useState} from 'react';
 import './App.css'
+import './index.css'
 import axios from "axios";
+import MovieTable from "./components/MovieTable.jsx";
 
 function App() {
     const [movies, setMovies] = useState([]);
@@ -11,7 +13,6 @@ function App() {
         axios.get('http://localhost:8080/movies')
             .then(response => {
                 setMovies(response.data);
-                console.log(movies);
             })
             .catch(error => {
                 console.error('Error fetching movies:', error);
@@ -21,18 +22,9 @@ function App() {
 
     return (
         <>
-            <h1>Kinokava</h1>
+            <h1 className="text-3xl font-bold underline">Kinokava</h1>
             <div className="movie-list">
-                {movies.map(movie => (
-                    <div key={movie.id} className="movie-card">
-                        <h2>{movie.title}</h2>
-                        <p>Genre: {movie.genre}</p>
-                        <p>Number of Seats: {movie.numSeats}</p>
-                        <p>Age Rating: {movie.ageRating}</p>
-                        <p>Screening Date: {new Date(movie.screeningDate).toLocaleDateString()}</p>
-                        <p>Screening Time: {movie.screeningTime}</p>
-                    </div>
-                ))}
+                <MovieTable movies={movies} />
             </div>
         </>
     );
