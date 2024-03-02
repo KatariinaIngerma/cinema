@@ -9,7 +9,6 @@ public class CgiTestApplication {
     public static void main(String[] args) {
 
         SpringApplication.run(CgiTestApplication.class, args);
-        System.out.println("Lol");
     }
 
 }
