@@ -5,11 +5,14 @@ import axios from "axios";
 import MovieTable from "./components/MovieTable.jsx";
 import DetailedMovie from "./components/DetailedMovie.jsx";
 import Header from "./components/Header.jsx";
+import SeatsPlan from "./components/SeatsPlan.jsx";
 
 function App() {
     const [movies, setMovies] = useState([]);
     const [selectedMovie, setSelectedMovie] = useState(null);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [showSeatPlan, setShowSeatPlan] = useState(false);
+    const [numSelectedSeats, setNumSelectedSeats] = useState(0);
 
     const handleLogin = () => {
         console.log("logimine õnnestus")
@@ -38,7 +41,15 @@ function App() {
 
     const handleBackToMovies = () => {
         setSelectedMovie(null);
+        setShowSeatPlan(false);
     };
+
+    //
+    const handleSelectSeats=(numSeats)=>{
+        console.log("k", numSeats);
+        setNumSelectedSeats(numSeats);
+        setShowSeatPlan(true);
+    }
 
 
     return (
@@ -46,10 +57,17 @@ function App() {
             <Header isLoggedIn={isLoggedIn} onLogin={handleLogin} onLogout={handleLogout} />
             <div className="movie-list flex justify-center py-12">
                 {selectedMovie ? (
-                    <DetailedMovie movie={selectedMovie} onBack={handleBackToMovies} />
+                    <>
+                        {showSeatPlan ? (
+                            <SeatsPlan movie={selectedMovie} onBack={handleBackToMovies} numSelectedSeats={numSelectedSeats} />
+                        ) : (
+                            <DetailedMovie movie={selectedMovie} onBack={handleBackToMovies} onSelectSeat={handleSelectSeats} />
+                        )}
+                    </>
                 ) : (
                     <MovieTable movies={movies} onBuyTicket={handleBuyTicket} />
                 )}
+
             </div>
         </>
     );

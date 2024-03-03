@@ -30,7 +30,6 @@
         <dependency>
             <groupId>jakarta.persistence</groupId>
             <artifactId>jakarta.persistence-api</artifactId>
-            <version>3.2.1</version>
         </dependency>
         <!-- H2 Database for in-memory database (optional) -->
         <dependency>
