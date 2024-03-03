@@ -1,4 +1,5 @@
 import {useEffect, useState} from 'react';
+import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import './App.css'
 import './index.css'
 import axios from "axios";
@@ -6,6 +7,7 @@ import MovieTable from "./components/MovieTable.jsx";
 import DetailedMovie from "./components/DetailedMovie.jsx";
 import Header from "./components/Header.jsx";
 import SeatsPlan from "./components/SeatsPlan.jsx";
+import LoginForm from "./components/LoginComponents/Login.jsx";
 
 function App() {
     const [movies, setMovies] = useState([]);
@@ -45,32 +47,65 @@ function App() {
     };
 
     //
-    const handleSelectSeats=(numSeats)=>{
+    const handleSelectSeats = (numSeats) => {
         console.log("k", numSeats);
         setNumSelectedSeats(numSeats);
         setShowSeatPlan(true);
     }
-
-
     return (
-        <>
-            <Header isLoggedIn={isLoggedIn} onLogin={handleLogin} onLogout={handleLogout} />
-            <div className="movie-list flex justify-center py-12">
-                {selectedMovie ? (
+        <Routes>
+            <Route
+                path="/login"
+                element={
                     <>
-                        {showSeatPlan ? (
-                            <SeatsPlan movie={selectedMovie} onBack={handleBackToMovies} numSelectedSeats={numSelectedSeats} />
-                        ) : (
-                            <DetailedMovie movie={selectedMovie} onBack={handleBackToMovies} onSelectSeat={handleSelectSeats} />
-                        )}
+                        <Header
+                            isLoggedIn={isLoggedIn}
+                            onLogin={handleLogin}
+                            onLogout={handleLogout}
+                        />
+                        <LoginForm onLogin={handleLogin} />
                     </>
-                ) : (
-                    <MovieTable movies={movies} onBuyTicket={handleBuyTicket} />
-                )}
+                }
+            />
+            <Route
+                path="/"
+                element={
+                    <>
+                        <Header
+                            isLoggedIn={isLoggedIn}
+                            onLogin={handleLogin}
+                            onLogout={handleLogout}
+                        />
 
-            </div>
-        </>
+                        <div className="movie-list flex justify-center py-12">
+                            {selectedMovie ? (
+                                <>
+                                    {showSeatPlan ? (
+                                        <SeatsPlan
+                                            movie={selectedMovie}
+                                            onBack={handleBackToMovies}
+                                            numSelectedSeats={numSelectedSeats}
+                                        />
+                                    ) : (
+                                        <DetailedMovie
+                                            movie={selectedMovie}
+                                            onBack={handleBackToMovies}
+                                            onSelectSeat={handleSelectSeats}
+                                        />
+                                    )}
+                                </>
+                            ) : (
+                                <MovieTable
+                                    movies={movies}
+                                    onBuyTicket={handleBuyTicket}
+                                />
+                            )}
+                        </div>
+                    </>
+                }
+            />
+        </Routes>
     );
-}
 
+}
 export default App;
