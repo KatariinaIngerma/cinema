@@ -69,7 +69,6 @@ public class UserController {
 
         User savedUser = userRepository.save(createdUser);
         //userRepository.save(savedUser);
-
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(email,password);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = JwtProvider.generateToken(authentication);
@@ -109,7 +108,7 @@ public class UserController {
 
         System.out.println(username+"---++----"+password);
 
-        UserDetails userDetails = customUserDetails.loadUserByUsername(username);
+        UserDetails userDetails = userService.loadUserByUsername(username);
 
         System.out.println("Sig in in user details"+ userDetails);
 
