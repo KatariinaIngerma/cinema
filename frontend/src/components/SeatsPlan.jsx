@@ -76,8 +76,8 @@ const SeatsPlan = ({ onSeatClick, onBack, numSelectedSeats }) => {
 
     return (
         <div>
-            <h1 className="text-3xl font-bold m-5">2. Istekohad</h1>
-            <p className="m-5 text-xl">Ekraan</p>
+            <h1 className="text-3xl font-bold m-5 text-gray-700">3. Istekohad</h1>
+            <p className="m-5 text-xl text-gray-700">Ekraan</p>
             <div className="grid grid-cols-10 gap-1">
                 {seats.map((seat, index) => (
                     <Seat

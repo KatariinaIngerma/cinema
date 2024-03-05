@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link} from 'react-router-dom';
 import './App.css'
 import './index.css'
 import axios from "axios";
@@ -58,17 +58,12 @@ function App() {
                 path="/login"
                 element={
                     <>
-                        <Header
-                            isLoggedIn={isLoggedIn}
-                            onLogin={handleLogin}
-                            onLogout={handleLogout}
-                        />
                         <LoginForm onLogin={handleLogin} />
                     </>
                 }
             />
             <Route
-                path="/"
+                path="*"
                 element={
                     <>
                         <Header

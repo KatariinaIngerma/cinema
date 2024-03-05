@@ -1,39 +1,26 @@
 package com.example.cgitest.Service;
 
-import com.example.cgitest.model.Movie;
 import com.example.cgitest.model.User;
-import com.example.cgitest.repository.MovieRepository;
-import com.example.cgitest.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
-@Service
-public class UserService {
-    private final UserRepository userRepository;
-    private final MovieRepository movieRepository;
+public interface UserService {
 
-    @Autowired
-    public UserService(UserRepository userRepository, MovieRepository movieRepository) {
-        this.userRepository = userRepository;
-        this.movieRepository = movieRepository;
-    }
+    UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
 
-    public User createUser(User user) {
-        return userRepository.save(user);
-    }
+    public List<User> getAllUsers();
 
-    public void addMovieToUserHistory(Long userId, Long movieId) {
-        User user = getUserById(userId);
+    public User findUserProfileByJwt(String jwt);
 
-        // lisamine
-        Movie movie = movieRepository.findById(movieId)
-                .orElseThrow(() -> new RuntimeException("Movie not found with id: " + movieId));
+    public User findUserByEmail(String email) ;
 
-        user.getHistory().add(movie);
-        userRepository.save(user);
-    }
+    public User findUserById(String userId) ;
 
-    public User getUserById(Long id){
-        return userRepository.getReferenceById(id);
-    }
+    public List<User> findAllUsers();
+
+    User getUserById(Long id);
+
+    void addMovieToUserHistory(Long userId, Long movieId);
 }

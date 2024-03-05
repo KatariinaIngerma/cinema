@@ -1,28 +1,32 @@
 package com.example.cgitest.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-
 import java.util.List;
 
 @Entity
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String firstName;
-    private String lastName;
-    @ManyToMany
+    private String email;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private String password;
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "user_movie_history",
             joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "movie_id")
+            inverseJoinColumns = @JoinColumn(name = "movie_id"),
+            foreignKey = @ForeignKey(name = "fk_user_movie_history_user"),
+            inverseForeignKey = @ForeignKey(name = "fk_user_movie_history_movie")
     )
     private List<Movie> history;
 
-    public User(Long id, String firstName, String lastName, List<Movie> history) {
+    public User(Long id, String email, String password, List<Movie> history) {
         this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
         this.history = history;
     }
 
@@ -37,20 +41,20 @@ public class User {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getEmail() {
+        return email;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setEmail(String userName) {
+        this.email = userName;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getPassword() {
+        return password;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public List<Movie> getHistory() {

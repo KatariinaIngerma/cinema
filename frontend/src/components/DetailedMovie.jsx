@@ -8,7 +8,7 @@ function DetailedMovie({ movie, onBack, onSelectSeat }) {
         console.log(numSeats, "istekohta valitud")
     };
     return (
-        <div className="container mx-auto p-5">
+        <div className="container mx-auto p-5 text-gray-700">
             <h1 className="text-3xl font-bold m-5">1. Film</h1>
             <h2 className="text-2xl font-bold mb-5">{movie.title}</h2>
             <p><strong>Žanr:</strong> {movie.genre}</p>

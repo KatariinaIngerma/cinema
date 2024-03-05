@@ -10,7 +10,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <Router>
         <Routes>
             <Route path="/login" element={<LoginForm />} />
-            <Route path="/" element={<App />} />
+            <Route path="*" element={<App />} />
         </Routes>
     </Router>
 
