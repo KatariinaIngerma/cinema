@@ -11,8 +11,8 @@ Rakenduse backendiks on Spring Boot ja frontend React + TailwindCSS.
 ### Rakenduse Funktsioonid 
 <br>
 
-**1. Filmi Soovitamine** 
-<br>
+**1. Filmi Soovitamine** <br>
+
 1.1 Kinokava kuvamine: Kasutajad näevad kinokavasid koos filmide ja seansside ajakavaga. <br>
 1.2 Filtreerimisvõimalused: Kasutajad saavad filtreerida kinokava erinevate kriteeriumide järgi, näiteks žanri, vanusepiirangu, keele järgi. <br>
 1.3 Kasutaja registreerimine <br>
@@ -22,10 +22,10 @@ Rakenduse backendiks on Spring Boot ja frontend React + TailwindCSS.
 
 **2. Istekohtade Soovitamine** <br>
 
-2.1 Kasutaja saab valida soovitud filmi.
-2.2 Kasutaja saab valida piletite arvu.
-2.2 Rakendus soovitab kasutajale istekohti, võttes arvesse mitut piletit ja seda, et istekohad võiksid olla võimalikult keskel ja mitme pileti valimisel kõrvuti.
-2.3 Film lisatakse kasutaja ajalukku kui ta on sisselogitud ja "ostab" pileti.
+2.1 Kasutaja saab valida soovitud filmi. <br>
+2.2 Kasutaja saab valida piletite arvu. <br>
+2.2 Rakendus soovitab kasutajale istekohti, võttes arvesse mitut piletit ja seda, et istekohad võiksid olla võimalikult keskel ja mitme pileti valimisel kõrvuti. <br>
+2.3 Film lisatakse kasutaja ajalukku kui ta on sisselogitud ja "ostab" pileti. <br>
 
 <hr>
 
