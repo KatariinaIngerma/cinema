@@ -6,7 +6,10 @@ Kino rakendus võimaldab kasutajatel leida ja broneerida filme ning istekohti ki
 ### Tehnoloogiad
 Rakenduse backendiks on Spring Boot ja frontend React + TailwindCSS.
 
-### Rakenduse Funktsioonid
+<hr>
+
+### Rakenduse Funktsioonid 
+<br>
 **1. Filmi Soovitamine** <br>
 1.1 Kinokava kuvamine: Kasutajad näevad kinokavasid koos filmide ja seansside ajakavaga. <br>
 1.2 Filtreerimisvõimalused: Kasutajad saavad filtreerida kinokava erinevate kriteeriumide järgi, näiteks žanri, vanusepiirangu, keele järgi. <br>
@@ -22,6 +25,8 @@ Rakenduse backendiks on Spring Boot ja frontend React + TailwindCSS.
 2.2 Rakendus soovitab kasutajale istekohti, võttes arvesse mitut piletit ja seda, et istekohad võiksid olla võimalikult keskel ja mitme pileti valimisel kõrvuti.
 2.3 Film lisatakse kasutaja ajalukku kui ta on sisselogitud ja "ostab" pileti.
 
+<hr>
+
 ### Backend Endpointid
 * GET /auth - Kõikide kasutajate kuvamine
 * POST /auth/signup - Kasutaja registreerimine
@@ -34,7 +39,7 @@ Rakenduse backendiks on Spring Boot ja frontend React + TailwindCSS.
 * GET /movies/{id} - Filmide üksikasjad
 * PUT /movies/{id} - Filmi andmete muutmine
 
-  <hr>
+<hr>
 
 ### Kuidas ülesande lahendasin
 
