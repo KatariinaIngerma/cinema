@@ -1,6 +1,6 @@
-### Kino veebirakendus
+# Kino veebirakendus
 
-## Kirjeldus
+### Kirjeldus
 Kino rakendus võimaldab kasutajatel leida ja broneerida filme ning istekohti kinosaalis. Rakendus pakub erinevaid filtreerimisvõimalusi, et soovitada kasutajatele just neile huvipakkuvaid filme ja istekohti.
 
 ### Tehnoloogiad
@@ -33,11 +33,11 @@ Rakenduse backendiks on Spring Boot ja frontend React + TailwindCSS.
 ### Kuidas ülesande lahendasin
 
 Alustasin ülesande lahendamist planeerimisega, et välja mõelda klassid ja struktuur.
-Backendis on kasutad: 
+Backendi struktuuri selgitus: 
 1. controller: MovieController, UserController, mis vastutavad HTTP päringute eest.
 2. Service: UserService, MovieService on äriloogika jaoks, et erinevaid operatsioone teostada. Näiteks filmide lisamine, leidmine jne.
 3. Model: User, Movie on nn põhikomponendi klassid, mis hoiavad filmide, kasutajatega seotud infot.
-4. Repository: MovieRepository, UserRepository võimaldavad andmebaasiga suhtlemist. "Andmebaasiks" on JPA (Java Persistence API), eeldasin et pole vaja ala postgres vms andmebaasi siia lisada.
+4. Repository: MovieRepository, UserRepository võimaldavad andmebaasiga suhtlemist. "Andmebaasiks" on JPA (Java Persistence API), eeldasin et pole vaja ala postgres vms andmebaasi siia lisada. See tähendab ka, et andmed ei salvestu kui rakendus kinni pannakse. Lisasin mõned hardcode-itud filmid, et alati midagi olemas oleks.
 5. Security, autentimisega seotud failid.
 
 <br><br>
