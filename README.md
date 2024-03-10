@@ -34,6 +34,8 @@ Rakenduse backendiks on Spring Boot ja frontend React + TailwindCSS.
 * GET /movies/{id} - Filmide üksikasjad
 * PUT /movies/{id} - Filmi andmete muutmine
 
+  <hr>
+
 ### Kuidas ülesande lahendasin
 
 Alustasin ülesande lahendamist planeerimisega, et välja mõelda klassid ja struktuur.
