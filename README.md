@@ -21,7 +21,27 @@ Rakenduse backendiks on Spring Boot ja frontend React + TailwindCSS.
 ### Backend Endpointid
 * GET /auth - Kõikide kasutajate kuvamine
 * POST /auth/signup - Kasutaja registreerimine
-* POST /auth/signin - Sisselogimine 
+* POST /auth/signin - Sisselogimine
+* GET /auth/me võtab küpsistest jwt tokeni ja tagastab kasutaja andmed
+* POST /auth/{userId}/addMovie/{movieId}" kasutajale filmi lisamine vaatamise ajalukku
+
+
 * GET /movies - Kõikide filmide kuvamine
 * GET /movies/{id} - Filmide üksikasjad
-* PUT /movies/{id} - Filmide muutmine
+* PUT /movies/{id} - Filmi andmete muutmine
+
+### Kuidas ülesande lahendasin
+
+Alustasin ülesande lahendamist planeerimisega, et välja mõelda klassid ja struktuur.
+Backendis on kasutad: 
+1. controller: MovieController, UserController, mis vastutavad HTTP päringute eest.
+2. Service: UserService, MovieService on äriloogika jaoks, et erinevaid operatsioone teostada. Näiteks filmide lisamine, leidmine jne.
+3. Model: User, Movie on nn põhikomponendi klassid, mis hoiavad filmide, kasutajatega seotud infot.
+4. Repository: MovieRepository, UserRepository võimaldavad andmebaasiga suhtlemist. "Andmebaasiks" on JPA (Java Persistence API), eeldasin et pole vaja ala postgres vms andmebaasi siia lisada.
+5. Security, autentimisega seotud failid.
+
+<br><br>
+Implementeerimist alustasin backendist. Tegin kõigepeale filmide endpointid, et saaks filme lisada ja neid GET requestiga kätte saada. Tegin ka kasutajale endpointid. Siis tegin Reactiga frontendis filmide tabeli ja integreerisin backendiga st kuvasin filmitabelisse filmid ja filmidele detailse vaate. <br>
+Rakendus vajas ka autentimist, kuna on olemas kasutajad, kellel vaatamise ajalugu ja kes peavad saama sisse logida/registreeruda. Selleks lisasin juurde Spring security koos jwt-ga. Selle jaoks sain abi siit (ainult backendi pool): https://www.geeksforgeeks.org/spring-security-login-page-with-react/  Täiendasin seda, lisades vajalikud funktsioonid, parandasin ära ka errorid, mis tekkisid. <br>
+Seejärel liikusin veel frontendi arendamise juurde. Lõin kasutaja profiili, sisselogimise/registreerimse lehe ja integreerisin selle backendiga. Autentimise protsess oli pigem keerulisem, pidin ka väikse testi tegema, et kontrollida, kas jwt tokenist saab eraldada õiget infot. 
+
