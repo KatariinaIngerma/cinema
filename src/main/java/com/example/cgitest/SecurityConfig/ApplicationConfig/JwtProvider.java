@@ -1,5 +1,6 @@
 package com.example.cgitest.SecurityConfig.ApplicationConfig;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.Authentication;
@@ -41,14 +42,20 @@ public class JwtProvider {
 
     @SuppressWarnings("deprecation")
     public static String getEmailFromJwtToken(String jwt) {
-        jwt = jwt.substring(7); // Assuming "Bearer " is removed from the token
+        // Remove "Bearer " prefix if present
+        if (jwt.startsWith("Bearer ")) {
+            jwt = jwt.substring(7);
+        }
         try {
-            Claims claims=Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(jwt).getBody();
-            //Claims claims = Jwts.parser().setSigningKey(key).build().parseClaimsJws(jwt).getBody();
-            String email = String.valueOf(claims.get("email"));
-            System.out.println("Email extracted from JWT: " + claims);
+            // Parse the JWT token and extract the claims
+            Claims claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(jwt).getBody();
+
+            // Extract email claim from the claims map
+            String email = (String) claims.get("email");
+            System.out.println("Email extracted from JWT: " + email);
             return email;
-        } catch (Exception e) {
+        } catch (JwtException e) {
+            // Handle JWT parsing exceptions
             System.err.println("Error extracting email from JWT: " + e.getMessage());
             e.printStackTrace();
             return null;

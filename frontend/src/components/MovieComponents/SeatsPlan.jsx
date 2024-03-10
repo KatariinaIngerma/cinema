@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import Seat from './Seat';
+import Seat from './Seat.jsx';
 
-const SeatsPlan = ({ onSeatClick, onBack, numSelectedSeats }) => {
+const SeatsPlan = ({ onSeatClick, onBack, numSelectedSeats, isLoggedIn, movie, userId }) => {
     const totalRows = 8;
     const totalCols = 10;
     const totalSeats = totalRows * totalCols;
@@ -10,8 +10,7 @@ const SeatsPlan = ({ onSeatClick, onBack, numSelectedSeats }) => {
     const generateRandomSeats = () => {
         const seats = [];
 
-        // Genereeri broneeritud kohad
-        const bookedSeats = 25; // 25 kohta on juba brneeritud
+        const bookedSeats = 20; // 25 kohta on juba brneeritud
         for (let i = 0; i < totalSeats; i++) {
             seats.push({ isBooked: false, isSelected: false });
         }
@@ -49,7 +48,7 @@ const SeatsPlan = ({ onSeatClick, onBack, numSelectedSeats }) => {
 
     const [seats, setSeats] = useState(generateRandomSeats());
 
-    // Function to handle seat selection
+    // Funktsioon, et genereerida kasutajale istekohad
     const handleSeatSelect = (index) => {
         if (seats[index].isBooked) {
             return; // Do not select booked seats
@@ -58,7 +57,7 @@ const SeatsPlan = ({ onSeatClick, onBack, numSelectedSeats }) => {
         const updatedSeats = [...seats];
         updatedSeats[index].isSelected = !updatedSeats[index].isSelected;
 
-        // Ensure only numSelectedSeats number of seats can be selected
+        // Kontroll, et saaks ainult õige arvu istmeid
         let selectedCount = 0;
         updatedSeats.forEach(seat => {
             if (seat.isSelected) {
@@ -67,14 +66,42 @@ const SeatsPlan = ({ onSeatClick, onBack, numSelectedSeats }) => {
         });
 
         if (selectedCount > numSelectedSeats) {
-            // If more seats are selected than allowed, deselect the last selected seat
+            // Kui tahetakse rohkem istekohti panna siis võtame viimase kohta ära
             updatedSeats[index].isSelected = !updatedSeats[index].isSelected;
         }
 
         setSeats(updatedSeats);
     };
 
-    return (
+    const handlePurchase = async () => {
+        if (isLoggedIn) {
+            try {
+                const response = await fetch(`http://localhost:8080/auth/${userId}/addMovie/${movie.id}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        //
+                    })
+                });
+
+                if (response.ok) {
+                    console.log("Purchase confirmed.");
+                } else {
+                    console.error("Failed to confirm purchase.");
+                }
+            } catch (error) {
+                console.error("Error occurred while confirming purchase:", error);
+            }
+        } else {
+            // kasutaja pole sisse logitud, ehk ei lisa talle ajalukku filmi
+            // TODO Link avalehele
+        }
+    };
+
+
+        return (
         <div>
             <h1 className="text-3xl font-bold m-5 text-gray-700">3. Istekohad</h1>
             <p className="m-5 text-xl text-gray-700">Ekraan</p>
@@ -89,7 +116,7 @@ const SeatsPlan = ({ onSeatClick, onBack, numSelectedSeats }) => {
                 ))}
             </div>
             <button onClick={onBack} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-10">Tagasi kinokavasse</button>
-            <button onClick={onBack} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-10 ml-4">Kinnita ost</button>
+            <button onClick={handlePurchase} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-10 ml-4">Kinnita ost</button>
         </div>
     );
 };

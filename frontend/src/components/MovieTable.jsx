@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-// Button component
+// Button komponent
 function TicketButton({ onClick }) {
     return (
         <button onClick={onClick} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
@@ -8,9 +8,8 @@ function TicketButton({ onClick }) {
         </button>
     );
 }
-
-// MovieTable component
-function MovieTable({ movies, onBuyTicket  }) {
+// MovieTable komponent
+function MovieTable({ movies, onBuyTicket, isLoggedIn  }) {
     const [genreFilter, setGenreFilter] = useState('');
     const [ageRatingFilter, setAgeRatingFilter] = useState('');
     const [langFilter, setLangFilter] = useState('');
@@ -27,10 +26,8 @@ function MovieTable({ movies, onBuyTicket  }) {
         setLangFilter(event.target.value);
     };
     const handleRecommendMovies = () => {
-        // Logic for recommending movies based on user preferences
+        // todo
     };
-
-
 
     return (
         <div className="overflow-x-auto rounded-md border-none m-5">
@@ -40,9 +37,9 @@ function MovieTable({ movies, onBuyTicket  }) {
                     <label htmlFor="genre" className="p-2">Žanr:</label>
                     <select id="genre" value={genreFilter} onChange={handleGenreFilterChange} className="bg-gray-200 border border-gray-300 rounded-md px-4 py-2">
                         <option value="">Kõik</option>
-                        <option value="Draama">Draama</option>
+                        <option value="Drama">Draama</option>
                         <option value="Action">Action</option>
-                        <option value="Komöödia">Komöödia</option>
+                        <option value="Crime">Krimi</option>
                     </select>
                 </div>
                 <div>

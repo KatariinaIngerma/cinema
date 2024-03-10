@@ -6,6 +6,7 @@ import {data} from "autoprefixer";
 const LoginForm = ({  }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const handleEmailChange = (event) => {
         setEmail(event.target.value);
@@ -20,11 +21,11 @@ const LoginForm = ({  }) => {
         // Login
         axios.post('http://localhost:8080/auth/signin', { email, password })
             .then(response => {
-                console.log(data);
-                console.log(response.data);
+                document.cookie = `jwt=${response.data.jwt}; Secure; SameSite=Strict`;
+                setIsLoggedIn(true);
             })
             .catch(error => {
-                console.error('Login error:', error); // Handle login error
+                console.error('Login error:', error);
             });
     };
 
@@ -42,7 +43,11 @@ const LoginForm = ({  }) => {
 
     return (
         <div>
-            <Header />
+            <Header
+                isLoggedIn={isLoggedIn}
+                //onLogin={handleLoginSubmit}
+               // onLogout={handleLogout}
+            />
             <h1 className="text-3xl font-bold mt-20 text-gray-700">Logi sisse või registreeru</h1>
             <form className="w-80 mx-auto mt-10 ">
                 <div className="mb-4">

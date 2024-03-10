@@ -4,10 +4,35 @@ import './App.css'
 import './index.css'
 import axios from "axios";
 import MovieTable from "./components/MovieTable.jsx";
-import DetailedMovie from "./components/DetailedMovie.jsx";
+import DetailedMovie from "./components/MovieComponents/DetailedMovie.jsx";
 import Header from "./components/Header.jsx";
-import SeatsPlan from "./components/SeatsPlan.jsx";
+import SeatsPlan from "./components/MovieComponents/SeatsPlan.jsx";
 import LoginForm from "./components/LoginComponents/Login.jsx";
+import Profile from "./components/ProfileComponents/Profile.jsx";
+
+    export async function getCurrentUser() {
+    try {
+        const jwtToken = document.cookie.split(';').find(cookie => cookie.trim().startsWith('jwt='));
+        if (!jwtToken) {
+            throw new Error('JWT token not found');
+        }
+
+        const response = await fetch('http://localhost:8080/auth/me', {
+            method: 'GET',
+            credentials: 'include'
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch user data');
+        }
+
+        const userData = await response.json();
+        return userData; // Return user data including email and ID
+    } catch (error) {
+        console.error('Error fetching user data:', error);
+        throw error;
+    }
+}
 
 function App() {
     const [movies, setMovies] = useState([]);
@@ -15,17 +40,27 @@ function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [showSeatPlan, setShowSeatPlan] = useState(false);
     const [numSelectedSeats, setNumSelectedSeats] = useState(0);
+    const [userHistory, setUserHistory] = useState([]);
+    const [userId, setUserId] = useState(null);
+    const [email, setEmail] = useState("");
 
-    const handleLogin = () => {
-        console.log("logimine õnnestus")
-        setIsLoggedIn(true);
-    };
 
     const handleLogout = () => {
-        console.log("välja logitud")
-        setIsLoggedIn(false);
+        axios.delete('http://localhost:8080/auth/logout')
+            .then(response => {
+                console.log(response.data);
+                setIsLoggedIn(false);
+            })
+            .catch(error => {
+                console.error('Logout error:', error);
+            });
     };
+
     useEffect(() => {
+        const jwtToken = document.cookie.split(';').find(cookie => cookie.trim().startsWith('jwt='));
+        if (jwtToken) {
+            setIsLoggedIn(true);
+        }
         // Backendist get requestiga filmid
         axios.get('http://localhost:8080/movies')
             .then(response => {
@@ -35,6 +70,21 @@ function App() {
                 console.error('Error fetching movies:', error);
             });
     }, []);
+
+    useEffect(() => {
+        getCurrentUser()
+            .then(userData => {
+                setEmail(userData.email);
+                setUserId(userData.id);
+                setIsLoggedIn(true);
+                setUserHistory(userData.history);
+            })
+            .catch(error => {
+                console.error('Error fetching user data:', error);
+                setIsLoggedIn(false);
+            });
+    }, []);
+
 
     const handleBuyTicket = (movieId) => {
         const movie = movies.find(movie => movie.id === movieId);
@@ -46,29 +96,33 @@ function App() {
         setShowSeatPlan(false);
     };
 
-    //
     const handleSelectSeats = (numSeats) => {
         console.log("k", numSeats);
         setNumSelectedSeats(numSeats);
         setShowSeatPlan(true);
     }
+
     return (
         <Routes>
             <Route
                 path="/login"
                 element={
                     <>
-                        <LoginForm onLogin={handleLogin} />
+                        <LoginForm  />
                     </>
                 }
             />
+            <Route path="/profile"
+                   element=
+                       {<Profile
+                           isLoggedIn={isLoggedIn}
+                            />} />
             <Route
                 path="*"
                 element={
                     <>
                         <Header
                             isLoggedIn={isLoggedIn}
-                            onLogin={handleLogin}
                             onLogout={handleLogout}
                         />
 
@@ -77,9 +131,11 @@ function App() {
                                 <>
                                     {showSeatPlan ? (
                                         <SeatsPlan
+                                            userId={userId}
                                             movie={selectedMovie}
                                             onBack={handleBackToMovies}
                                             numSelectedSeats={numSelectedSeats}
+                                            isLoggedIn={isLoggedIn}
                                         />
                                     ) : (
                                         <DetailedMovie
@@ -91,6 +147,7 @@ function App() {
                                 </>
                             ) : (
                                 <MovieTable
+                                    isLoggedIn={isLoggedIn}
                                     movies={movies}
                                     onBuyTicket={handleBuyTicket}
                                 />
