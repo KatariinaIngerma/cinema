@@ -10,6 +10,7 @@ Rakenduse backendiks on Spring Boot ja frontend React + TailwindCSS.
 
 ### Rakenduse Funktsioonid 
 <br>
+
 **1. Filmi Soovitamine** <br>
 1.1 Kinokava kuvamine: Kasutajad näevad kinokavasid koos filmide ja seansside ajakavaga. <br>
 1.2 Filtreerimisvõimalused: Kasutajad saavad filtreerida kinokava erinevate kriteeriumide järgi, näiteks žanri, vanusepiirangu, keele järgi. <br>
