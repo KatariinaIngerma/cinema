@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import { BrowserRouter as Router, Routes, Route, Link} from 'react-router-dom';
+import {BrowserRouter as Router, Routes, Route, Link} from 'react-router-dom';
 import './App.css'
 import './index.css'
 import axios from "axios";
@@ -33,7 +33,18 @@ import Profile from "./components/ProfileComponents/Profile.jsx";
         throw error;
     }
 }
+    export const handleLogout = () => {
+        axios.delete('http://localhost:8080/auth/logout')
+            .then(response => {
+                console.log(response.data);
+                document.cookie = `jwt=${response.data.jwt}; Secure; SameSite=Strict`;
+            })
+            .catch(error => {
+                console.error('Logout error:', error);
+            });
+        };
 
+    // Main
 function App() {
     const [movies, setMovies] = useState([]);
     const [selectedMovie, setSelectedMovie] = useState(null);
@@ -44,19 +55,6 @@ function App() {
     const [userId, setUserId] = useState(null);
     const [email, setEmail] = useState("");
 
-
-    const handleLogout = () => {
-        axios.delete('http://localhost:8080/auth/logout')
-            .then(response => {
-                console.log(response.data);
-                setIsLoggedIn(false);
-                document.cookie = `jwt=${response.data.jwt}; Secure; SameSite=Strict`;
-
-            })
-            .catch(error => {
-                console.error('Logout error:', error);
-            });
-    };
 
     useEffect(() => {
         const jwtToken = document.cookie.split(';').find(cookie => cookie.trim().startsWith('jwt='));
@@ -85,7 +83,7 @@ function App() {
                 console.error('Error fetching user data:', error);
                 setIsLoggedIn(false);
             });
-    }, []);
+    }, [userHistory]);
 
 
     const handleBuyTicket = (movieId) => {
@@ -119,6 +117,7 @@ function App() {
                        {<Profile
                            isLoggedIn={isLoggedIn}
                            onBack={handleBackToMovies}
+                           onLogout={handleLogout}
                             />} />
             <Route
                 path="*"
@@ -153,6 +152,7 @@ function App() {
                                     isLoggedIn={isLoggedIn}
                                     movies={movies}
                                     onBuyTicket={handleBuyTicket}
+                                    userHistory={userHistory}
                                 />
                             )}
                         </div>

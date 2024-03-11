@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Header from "../Header.jsx";
-import { getCurrentUser } from "../../App.jsx";
+import App, { getCurrentUser } from "../../App.jsx";
+import {handleLogout} from "../../App.jsx";
 
 // Tabel vaatamisajaloo jaoks
 function MovieHistoryTable({ userHistory }) {
@@ -56,10 +57,10 @@ const Profile = () => {
 
     return (
         <div className="max-w-screen-xl mx-auto mt-16 text-gray-700 px-4">
-            <Header isLoggedIn={isLoggedIn} />
+            <Header isLoggedIn={isLoggedIn} onLogout={handleLogout} />
             {isLoggedIn ? (
                 <div className="max-w-6xl bg-white shadow-md rounded px-8 py-6 mx-auto">
-                    <h2 className="text-3xl font-semibold mb-4">Profiil</h2>
+                    <h2 className="text-3xl font-semibold mb-4">Minu profiil</h2>
                     <div className="mb-4">
                         <label className="block text-gray-700 text-sm font-bold mb-2">Email:</label>
                         <p className="text-black">{email}</p>

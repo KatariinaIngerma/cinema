@@ -1,12 +1,23 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
 function DetailedMovie({ movie, onBack, onSelectSeat }) {
-    const [numSeats, setNumSeats] = useState(0); // 2 istet valitud alguses
+    const [numSeats, setNumSeats] = useState(1);
+    const [imdbRating, setImdbRating] = useState(null);
 
     const handleNumSeatsChange = (e) => {
-        setNumSeats(parseInt(e.target.value));
-        console.log(numSeats, "istekohta valitud")
+        const seats = parseInt(e.target.value);
+        if (seats > 0) {
+            setNumSeats(seats);
+        }
     };
+    const handleSeatSelection = () => {
+        if (numSeats > 0) {
+            onSelectSeat(numSeats);
+        } else {
+            window.alert("Valige vähemalt 1 istekoht.");
+        }
+    };
+
     return (
         <div className="container mx-auto p-5 text-gray-700">
             <h1 className="text-3xl font-bold m-5">1. Film</h1>
@@ -20,11 +31,10 @@ function DetailedMovie({ movie, onBack, onSelectSeat }) {
             <h1 className="text-3xl font-bold m-5">2. Istekohtade arv</h1>
             <div className="mt-5">
                 <label htmlFor="numSeats" className="mr-2">Vali istekohtade arv:</label>
-                <input type="number" id="numSeats" name="numSeats" min="2" max={numSeats} value={numSeats} onChange={handleNumSeatsChange} autoFocus />
+                <input type="number" id="numSeats" name="numSeats" min="2" value={numSeats} onChange={handleNumSeatsChange} autoFocus />
             </div>
             <button onClick={onBack} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-5">Tagasi kinokavasse</button>
-            {/*propina kaasa istmete arv*/}
-            <button onClick={() => onSelectSeat(numSeats)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2 mt-5">Istekohtasi valima</button>
+            <button onClick={handleSeatSelection} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2 mt-5">Istekohtasi valima</button>
         </div>
     );
 }
