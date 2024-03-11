@@ -83,7 +83,7 @@ function App() {
                 console.error('Error fetching user data:', error);
                 setIsLoggedIn(false);
             });
-    }, [userHistory]);
+    }, [showSeatPlan]);
 
 
     const handleBuyTicket = (movieId) => {

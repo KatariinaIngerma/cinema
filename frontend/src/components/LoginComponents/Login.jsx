@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import Header from "../Header.jsx";
 import axios from "axios";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = ({ onBack }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [error, setError] = useState(null); // State for managing error messages
     const navigate = useNavigate();
 
     const handleEmailChange = (event) => {
@@ -19,28 +20,34 @@ const LoginForm = ({ onBack }) => {
 
     const handleLoginSubmit = (event) => {
         event.preventDefault();
+        // Reset any previous errors
+        setError(null);
         // Login
         axios.post('http://localhost:8080/auth/signin', { email, password })
             .then(response => {
                 document.cookie = `jwt=${response.data.jwt}; Secure; SameSite=Strict`;
                 setIsLoggedIn(true);
                 console.log("Login successful");
-                navigate("/")
+                navigate("/");
             })
             .catch(error => {
                 console.error('Login error:', error);
+                setError("Sisselogimisel tekkis viga. Palun kontrollige oma andmeid.");
             });
     };
 
     const handleRegisterSubmit = (event) => {
         event.preventDefault();
-        // post request et kasutaja registreerida
+        // Reset any previous errors
+        setError(null);
+        // Register
         axios.post('http://localhost:8080/auth/signup', { email, password })
             .then(response => {
                 console.log(response.data);
             })
             .catch(error => {
                 console.error('Registration error:', error);
+                setError("Registreerimisel tekkis viga. Palun proovige uuesti.");
             });
     };
 
@@ -49,9 +56,10 @@ const LoginForm = ({ onBack }) => {
             <Header
                 isLoggedIn={isLoggedIn}
                 //onLogin={handleLoginSubmit}
-               // onLogout={handleLogout}
+                // onLogout={handleLogout}
             />
             <h1 className="text-3xl font-bold mt-20 text-gray-700">Logi sisse või registreeru</h1>
+            {error && <p className="text-red-500">{error}</p>} {/* Display error message if there's any */}
             <form className="w-80 mx-auto mt-10 ">
                 <div className="mb-4">
                     <label htmlFor="username" className="text-lg font-bold block text-gray-700 m-5">Email:</label>
