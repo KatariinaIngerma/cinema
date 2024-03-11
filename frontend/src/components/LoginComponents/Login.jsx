@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import Header from "../Header.jsx";
 import axios from "axios";
-import {data} from "autoprefixer";
+import {useNavigate} from "react-router-dom";
 
-const LoginForm = ({  }) => {
+const LoginForm = ({ onBack }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const navigate = useNavigate();
 
     const handleEmailChange = (event) => {
         setEmail(event.target.value);
@@ -23,6 +24,8 @@ const LoginForm = ({  }) => {
             .then(response => {
                 document.cookie = `jwt=${response.data.jwt}; Secure; SameSite=Strict`;
                 setIsLoggedIn(true);
+                console.log("Login successful");
+                navigate("/")
             })
             .catch(error => {
                 console.error('Login error:', error);

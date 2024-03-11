@@ -83,9 +83,9 @@ const SeatsPlan = ({ onSeatClick, onBack, numSelectedSeats, isLoggedIn, movie, u
                         'Content-Type': 'application/json'
                     },
                 });
-
                 if (response.ok) {
                     console.log("Purchase confirmed.");
+                    onBack(true);
                 } else {
                     console.error("Failed to confirm purchase.");
                 }
@@ -93,8 +93,9 @@ const SeatsPlan = ({ onSeatClick, onBack, numSelectedSeats, isLoggedIn, movie, u
                 console.error("Error occurred while confirming purchase:", error);
             }
         } else {
-            // kasutaja pole sisse logitud, ehk ei lisa talle ajalukku filmi
-            // TODO Link avalehele
+            // kasutaja pole sisse logitud, ehk ei lisa talle ajalukku filmi ja lähme lihtsalt tagasi
+            console.log("Purchase confirmed.");
+            onBack(true);
         }
     };
 

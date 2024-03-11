@@ -50,6 +50,8 @@ function App() {
             .then(response => {
                 console.log(response.data);
                 setIsLoggedIn(false);
+                document.cookie = `jwt=${response.data.jwt}; Secure; SameSite=Strict`;
+
             })
             .catch(error => {
                 console.error('Logout error:', error);
@@ -116,6 +118,7 @@ function App() {
                    element=
                        {<Profile
                            isLoggedIn={isLoggedIn}
+                           onBack={handleBackToMovies}
                             />} />
             <Route
                 path="*"
