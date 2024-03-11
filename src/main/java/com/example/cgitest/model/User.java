@@ -2,6 +2,8 @@ package com.example.cgitest.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -27,7 +29,7 @@ public class User {
         this.id = id;
         this.email = email;
         this.password = password;
-        this.history = history;
+        this.history = new ArrayList<>(history);;
     }
 
     public User() {

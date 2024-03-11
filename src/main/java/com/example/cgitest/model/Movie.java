@@ -4,8 +4,8 @@ import jakarta.persistence.*;
 import java.util.Date;
 
 @Entity
+@Table(name="movies")
 public class Movie {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -17,7 +17,9 @@ public class Movie {
     private String screeningTime;
     private String language;
 
+    public Movie() {
 
+    }
     public Movie(Long id, String title, String genre, int numSeats, int ageRating, Date screeningDate, String screeningTime, String language) {
         this.id = id;
         this.title = title;
@@ -27,10 +29,6 @@ public class Movie {
         this.screeningDate = screeningDate;
         this.screeningTime = screeningTime;
         this.language = language;
-    }
-
-    public Movie() {
-
     }
 
     public Long getId() {

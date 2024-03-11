@@ -12,14 +12,6 @@ public interface UserService {
 
     public List<User> getAllUsers();
 
-    public User findUserProfileByJwt(String jwt);
-
-    public User findUserByEmail(String email) ;
-
-    public User findUserById(String userId) ;
-
-    public List<User> findAllUsers();
-
     User getUserById(Long id);
 
     void addMovieToUserHistory(Long userId, Long movieId);

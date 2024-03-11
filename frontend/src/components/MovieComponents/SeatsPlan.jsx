@@ -76,14 +76,12 @@ const SeatsPlan = ({ onSeatClick, onBack, numSelectedSeats, isLoggedIn, movie, u
     const handlePurchase = async () => {
         if (isLoggedIn) {
             try {
-                const response = await fetch(`http://localhost:8080/auth/${userId}/addMovie/${movie.id}`, {
+                const movieId = movie.id;
+                const response = await fetch(`http://localhost:8080/auth/${userId}/addMovie/${movieId}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({
-                        //
-                    })
                 });
 
                 if (response.ok) {

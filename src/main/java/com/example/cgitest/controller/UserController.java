@@ -31,14 +31,15 @@ public class UserController {
     private UserRepository userRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
-    //@Autowired
-    private UserServiceImplementation customUserDetails;
     @Autowired
-    private UserService userService;
+    private UserServiceImplementation userService;
+    //@Autowired
+    //private UserService userService;
 
     // Tagastaame kõik kasutajad
     @GetMapping
     public List<User> getAllUsers() {
+
         return userService.getAllUsers();
     }
 
