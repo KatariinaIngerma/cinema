@@ -3,9 +3,10 @@
 ### Kirjeldus
 Kino rakendus võimaldab kasutajatel leida ja broneerida filme ning istekohti kinosaalis. Rakendus pakub erinevaid filtreerimisvõimalusi, et soovitada kasutajatele just neile huvipakkuvaid filme ja istekohti.
 
+### Kasutamine
+
 ### Tehnoloogiad
 Rakenduse backendiks on Spring Boot ja frontend React + TailwindCSS.
-
 <hr>
 
 ### Rakenduse Funktsioonid 
@@ -54,7 +55,29 @@ Backendi struktuuri selgitus:
 5. Security, autentimisega seotud failid.
 
 <br><br>
-Implementeerimist alustasin backendist. Tegin kõigepeale filmide endpointid, et saaks filme lisada ja neid GET requestiga kätte saada. Tegin ka kasutajale endpointid. Siis tegin Reactiga frontendis filmide tabeli ja integreerisin backendiga st kuvasin filmitabelisse filmid ja filmidele detailse vaate. <br>
-Rakendus vajas ka autentimist, kuna on olemas kasutajad, kellel vaatamise ajalugu ja kes peavad saama sisse logida/registreeruda. Selleks lisasin juurde Spring security koos jwt-ga. Selle jaoks sain abi siit (ainult backendi pool): https://www.geeksforgeeks.org/spring-security-login-page-with-react/  Täiendasin seda, lisades vajalikud funktsioonid, parandasin ära ka errorid, mis tekkisid. <br>
-Seejärel liikusin veel frontendi arendamise juurde. Lõin kasutaja profiili, sisselogimise/registreerimse lehe ja integreerisin selle backendiga. Autentimise protsess oli pigem keerulisem, pidin ka väikse testi tegema, et kontrollida, kas jwt tokenist saab eraldada õiget infot. 
+Implementeerimist alustasin backendist. Tegin kõigepeale filmide endpointid, et saaks filme lisada ja nende infot GET requestiga kätte saada. Tegin ka kasutajale endpointid. Siis tegin Reactiga frontendis filmide tabeli ja integreerisin backendiga st kuvasin filmitabelisse filmid ja tegin filmidele detailse vaate. <br>
+Rakendus vajas ka autentimist, kuna on olemas kasutajad, kellel peab olema vaatamise ajalugu ja kes peavad saama sisse logida ja registreeruda. Selleks lisasin juurde Spring security koos jwt-ga. Selle jaoks sain abi siit (ainult backendi pool): https://www.geeksforgeeks.org/spring-security-login-page-with-react/  Täiendasin seda, lisades vajalikud funktsioonid, parandasin ära ka errorid, mis tekkisid. <br>
+Seejärel liikusin veel frontendi arendamise juurde. Lõin kasutaja profiili, sisselogimise/registreerimse lehe ja integreerisin selle backendiga. Autentimise protsess oli pigem keerulisem, pidin ka mõned testid tegema, et kontrollida, kas kõik töötab. 
+Lõpuks hakkasin implementeerima istekohtade algoritmi. <br><br>
+### Istekohtade soovitamise algoritm
+
+#### Funktsioonid
+**generateRandomSeats()** <br>
+See funktsioon genereerib juhuslikult broneeritud istekohad. <br>
+Tagastab: Istekohtade maatriksi, kus iga istekoha olekuks on märgitud broneeritud või mittebroneeritud. <br>
+**generateRecommendedSeats()** <br>
+See funktsioon leiab parimad istekohad, mis asuvad võimalikult keskel ja on järjest. <br>
+
+Tagastab: Parimate istekohtade massiivi. <br>
+Kui sobivaid kohti ei leita, kuvatakse teade "Nii palju vabu kohti pole järjest." <br>
+**findBestSeatsInRow(row, numSelectedSeats)** <br>
+See abifunktsioon leiab ühest reast parimad järjestikused istekohad. <br>
+
+Parameetrid: <br>
+row: Reaindeks, millest soovitakse parimaid istekohti leida. <br>
+numSelectedSeats: Mitu järjestikust istekohta on vaja leida. <br>
+Tagastab: Parimate istekohtade massiivi sellel real. <br>
+Eeldasin ka, et keegi üle 10 pileti ei osta, st sellises juhul ei saaks istmed kõrvuti olla. 
+
+Lisaksin ka juurde ühe API kaudu IMDB filmide reitingud. API kaudu saab reitingu nii, et kõüigepealt on request filmi pealkirja järgi ja sealt sab IMDB ID. Selle IDga saab reitingu, mis kuvatakse siis kui 'piletit' ostma hakatakse. 
 
