@@ -7,7 +7,6 @@ Kino rakendus võimaldab kasutajatel leida ja broneerida filme ning istekohti ki
 
 ## Tehnoloogiad
 Rakenduse backendiks on Spring Boot ja frontend React + TailwindCSS.
-<hr>
 
 ## Rakenduse Funktsioonid 
 <br>
@@ -75,5 +74,5 @@ row: Reaindeks, millest soovitakse parimaid istekohti leida. <br>
 numSelectedSeats: Mitu järjestikust istekohta on vaja leida. <br>
 Tagastab: Parimate istekohtade massiivi sellel real. <br>
 Eeldasin ka, et keegi üle 10 pileti ei osta, st sellises juhul ei saaks istmed kõrvuti olla. 
-<hr>
+
 
