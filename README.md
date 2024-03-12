@@ -53,9 +53,15 @@ Backendi struktuuri selgitus:
 
 <br><br>
 Implementeerimist alustasin backendist. Tegin kõigepeale filmide endpointid, et saaks filme lisada ja nende infot GET requestiga kätte saada. Tegin ka kasutajale endpointid. Siis tegin Reactiga frontendis filmide tabeli ja integreerisin backendiga st kuvasin filmitabelisse filmid ja tegin filmidele detailse vaate. <br>
-Rakendus vajas ka autentimist, kuna on olemas kasutajad, kellel peab olema vaatamise ajalugu ja kes peavad saama sisse logida ja registreeruda. Selleks lisasin juurde Spring security koos jwt-ga. Selle jaoks sain abi siit (ainult backendi pool): https://www.geeksforgeeks.org/spring-security-login-page-with-react/  Täiendasin seda, lisades vajalikud funktsioonid, parandasin ära ka errorid, mis tekkisid. <br>
+Rakendus vajas ka autentimist, kuna on olemas kasutajad, kellel peab olema vaatamise ajalugu ja kes peavad saama sisse logida ja registreeruda. Selleks lisasin juurde Spring security koos jwt-ga. Selle jaoks sain abi siit juhendist (ainult backendi pool): https://www.geeksforgeeks.org/spring-security-login-page-with-react/ Aga see oli veidi poolik ja vajas täiendust/kohandamist selle rakenduse jaoks ja mõndade vigade parandamist.  <br>
 Seejärel liikusin veel frontendi arendamise juurde. Lõin kasutaja profiili, sisselogimise/registreerimse lehe ja integreerisin selle backendiga. Autentimise protsess oli pigem keerulisem, pidin ka mõned testid tegema, et kontrollida, kas kõik töötab. 
-Lõpuks hakkasin implementeerima istekohtade algoritmi. Lisaksin ka juurde ühe API kaudu IMDB filmide reitingud. API kaudu saab reitingu nii, et kõigepealt on request filmi pealkirja järgi ja sealt sab IMDB ID. Selle IDga saab reitingu, mis kuvatakse siis kui 'piletit' ostma hakatakse. 
+Lõpuks hakkasin implementeerima istekohtade algoritmi. Alguses proovisin niisama midagi teha, aga väga head lahendust ei tulnud. Istekohtade algoritmi koha pealt pidin natuke mõtlema, aga aitas see, et panin paberile idee kirja. Jagasin ülesande väikesteks osadeks ja siis selle põhjal tegin koodi valmis. <br>
+Lisaksin ka juurde ühe API kaudu IMDB filmide reitingud. API kaudu saab reitingu nii, et kõigepealt on request filmi pealkirja järgi ja sealt sab IMDB ID. Selle IDga saab reitingu, mis kuvatakse siis kui 'piletit' ostma hakatakse. 
+
+## Filmi soovitamine
+### Funktsioonid
+**handleRecommendMovies**
+
 
 ## Istekohtade soovitamise algoritm
 
