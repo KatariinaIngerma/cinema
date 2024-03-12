@@ -28,7 +28,6 @@ Rakenduse backendiks on Spring Boot ja frontend React + TailwindCSS.
 2.2 Rakendus soovitab kasutajale istekohti, võttes arvesse mitut piletit ja seda, et istekohad võiksid olla võimalikult keskel ja mitme pileti valimisel kõrvuti. <br>
 2.3 Film lisatakse kasutaja ajalukku kui ta on sisselogitud ja "ostab" pileti. <br>
 
-<hr>
 
 ## Backend Endpointid
 * GET /auth - Kõikide kasutajate kuvamine
@@ -42,7 +41,6 @@ Rakenduse backendiks on Spring Boot ja frontend React + TailwindCSS.
 * GET /movies/{id} - Filmide üksikasjad
 * PUT /movies/{id} - Filmi andmete muutmine
 
-<hr>
 
 ## Kuidas ülesande lahendasin
 
@@ -59,7 +57,7 @@ Implementeerimist alustasin backendist. Tegin kõigepeale filmide endpointid, et
 Rakendus vajas ka autentimist, kuna on olemas kasutajad, kellel peab olema vaatamise ajalugu ja kes peavad saama sisse logida ja registreeruda. Selleks lisasin juurde Spring security koos jwt-ga. Selle jaoks sain abi siit (ainult backendi pool): https://www.geeksforgeeks.org/spring-security-login-page-with-react/  Täiendasin seda, lisades vajalikud funktsioonid, parandasin ära ka errorid, mis tekkisid. <br>
 Seejärel liikusin veel frontendi arendamise juurde. Lõin kasutaja profiili, sisselogimise/registreerimse lehe ja integreerisin selle backendiga. Autentimise protsess oli pigem keerulisem, pidin ka mõned testid tegema, et kontrollida, kas kõik töötab. 
 Lõpuks hakkasin implementeerima istekohtade algoritmi. Lisaksin ka juurde ühe API kaudu IMDB filmide reitingud. API kaudu saab reitingu nii, et kõigepealt on request filmi pealkirja järgi ja sealt sab IMDB ID. Selle IDga saab reitingu, mis kuvatakse siis kui 'piletit' ostma hakatakse. 
-<hr>
+
 ## Istekohtade soovitamise algoritm
 
 ### Funktsioonid
