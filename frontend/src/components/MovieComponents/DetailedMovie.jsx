@@ -29,7 +29,7 @@ function DetailedMovie({ movie, onBack, onSelectSeat }) {
                         s: movie.title // otsime filmi pealkirja järgi
                     },
                     headers: {
-                        'X-RapidAPI-Key': '',
+                        'X-RapidAPI-Key': process.env.REACT_APP_RAPID_API_KEY,
                         'X-RapidAPI-Host': 'mdblist.p.rapidapi.com'
                     }
                 });
