@@ -76,7 +76,7 @@ Lisaksin ka juurde ühe API kaudu IMDB filmide reitingud. API kaudu saab reiting
 - `filterRecommendedMovies`: Filtridab soovitatud filme positiivsete skooride alusel. <br>
 - `sortMoviesByScore`: Sorteerib soovitatud filmid skoori järgi kahanevas järjekorras. <br>
 - `handleRecommendMovies`: Põhifunktsioon filmide soovitamiseks kasutaja ajaloo põhjal. <br>
-
+## Istekohtade soovitamine
 ### Funktsioonid
 - `generateRandomSeats()`: See funktsioon genereerib juhuslikult broneeritud istekohad. Tagastab: Istekohtade maatriksi, kus iga istekoha olekuks on märgitud broneeritud või mittebroneeritud. <br>
 - `generateRecommendedSeats()` -  Leiab parimad istekohad, mis asuvad võimalikult keskel ja on järjest. Tagastab: Parimate istekohtade massiivi. <br>
