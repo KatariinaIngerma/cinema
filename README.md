@@ -25,7 +25,7 @@ Rakenduse backendiks on Spring Boot ja frontend React + TailwindCSS.
 1.2 Filtreerimisvõimalused: Kasutajad saavad filtreerida kinokava erinevate kriteeriumide järgi, näiteks žanri, vanusepiirangu, keele järgi. <br>
 1.3 Kasutaja registreerimine <br>
 1.4 Kasutaja sisse logimine <br>
-1.5 Sisselogitud kasutajad saavad valida soovituste vaatamise oma ajaloo põhjal, võttes arvesse varasemaid kinokülastusi. <br>
+1.5 Sisselogitud kasutajad saavad valida soovituste vaatamise oma ajaloo põhjal, võttes arvesse varasemaid kinokülastusi. Peab olema varasemates külastuses vähemalt 2 filmi. <br>
 1.6 Enda profiili vaatamine sh ka varasemalt vaadatud filme. <br>
 
 **2. Istekohtade Soovitamine** <br>
