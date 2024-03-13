@@ -3,11 +3,19 @@
 ## Kirjeldus
 Kino rakendus võimaldab kasutajatel leida ja broneerida filme ning istekohti kinosaalis. Rakendus pakub erinevaid filtreerimisvõimalusi, et soovitada kasutajatele just neile huvipakkuvaid filme ja istekohti.
 
-## Kasutamine
-
 ## Tehnoloogiad
 Rakenduse backendiks on Spring Boot ja frontend React + TailwindCSS.
 
+## Kasutamine
+### Spring booti rakenduse käivitamine
+1. Vaata, et oleks olemas JDK 21 ja Intellij IDEA.
+2. Impordi project.
+3. Käivita rakendus CgiTestApplication.java failist. Rakendus kasutab porti 8080.
+### Reacti käivitamine
+1. Vaata, et oleks olemas NodeJS.
+2. Mine frontend folderisse `cd frontend`
+3. Installimiseks `npm install`
+4. Rakenduse käivitamiseks `npm run dev` (dev server) või `npm start`. Rakendus kasutab porti 5173.
 ## Rakenduse Funktsioonid 
 <br>
 
