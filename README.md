@@ -67,7 +67,7 @@ Rakendus vajas ka autentimist, kuna on olemas kasutajad, kellel peab olema vaata
 Seejärel liikusin veel frontendi arendamise juurde. Lõin kasutaja profiili, sisselogimise/registreerimse lehe ja integreerisin selle backendiga. Autentimise protsess oli pigem keerulisem, pidin ka mõned testid tegema, et kontrollida, kas kõik töötab. 
 Lõpuks hakkasin implementeerima istekohtade algoritmi. Alguses proovisin niisama midagi teha, aga väga head lahendust ei tulnud. Istekohtade algoritmi koha pealt pidin natuke mõtlema, aga aitas see, et panin paberile idee kirja. Jagasin ülesande väikesteks osadeks ja siis selle põhjal tegin koodi valmis. <br>
 Lisaksin ka juurde ühe API kaudu IMDB filmide reitingud. API kaudu saab reitingu nii, et kõigepealt on request filmi pealkirja järgi ja sealt sab IMDB ID. Selle IDga saab reitingu, mis kuvatakse siis kui 'piletit' ostma hakatakse. 
-<br>
+<br><br>
 **Kaua aega läks?** Ütleksin, et väga kaua ei läinud, tegin mõned õhtud paar tundi kuni lõpuks valmis sai. Frontend läks kiirelt, selles midagi keerulist ei olnud. Backendiga läks ilmselt rohkem aega.
 
 ## Filmi soovitamine
