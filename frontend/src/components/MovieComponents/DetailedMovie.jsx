@@ -55,7 +55,7 @@ function DetailedMovie({ movie, onBack, onSelectSeat }) {
                         i: imdbId
                     },
                     headers: {
-                        'X-RapidAPI-Key': 'e3a858d7dbmsh201403a60787270p1a8c14jsn741b5c380ddc',
+                        'X-RapidAPI-Key': '',
                         'X-RapidAPI-Host': 'mdblist.p.rapidapi.com'
                     }
                 });
