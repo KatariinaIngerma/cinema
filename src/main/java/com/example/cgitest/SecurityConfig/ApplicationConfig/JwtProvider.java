@@ -14,7 +14,11 @@ import java.util.Set;
 //  https://www.geeksforgeeks.org/spring-security-login-page-with-react/
 public class JwtProvider {
     static SecretKey key = Keys.hmacShaKeyFor(JwtConstant.SECRET_KEY.getBytes());
-
+    /**
+     * Genereerib JWT tokeni autentimise objekti põhjal.
+     * @param auth autentimise objekt
+     * @return genereeritud JWT token
+     */
     public static String generateToken(Authentication auth) {
         Collection<? extends GrantedAuthority> authorities = auth.getAuthorities();
         String roles = populateAuthorities(authorities);
@@ -39,7 +43,11 @@ public class JwtProvider {
         return String.join(",",auths);
     }
 
-
+    /**
+     * Võtab JWT tokenist emaili.
+     * @param jwt JWT token
+     * @return saadud e-posti aadress
+     */
     @SuppressWarnings("deprecation")
     public static String getEmailFromJwtToken(String jwt) {
         // Remove "Bearer " prefix if present

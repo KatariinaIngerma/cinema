@@ -23,7 +23,12 @@ public class UserServiceImplementation implements UserService {
         this.movieRepository = movieRepository;
         this.movieService = movieService;
     }
-
+    /**
+     * Laeb kasutaja andmetega kasutaja andmebaasist.
+     * @param username kasutajanimi
+     * @return vastav kasutaja
+     * @throws UsernameNotFoundException kui kasutajat ei leitud
+     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(username);
@@ -37,16 +42,29 @@ public class UserServiceImplementation implements UserService {
                 user.getPassword(),
                 Collections.emptyList()); // No authorities
     }
-
+    /**
+     * Tagastab kõik kasutajad.
+     * @return kõikide kasutajate nimekiri
+     */
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
-
+    /**
+     * Tagastab kasutaja ID alusel.
+     * @param id kasutaja ID
+     * @return vastav kasutaja
+     */
     public User getUserById(Long id) {
         return userRepository.getReferenceById(id);
     }
-
+    /**
+     * Lisab filmi kasutaja ajalukku.
+     * @param userId kasutaja ID
+     * @param movieId filmi ID
+     * @throws IllegalArgumentException kui kasutaja ID või filmi ID on null
+     * @throws EntityNotFoundException kui kasutajat või filmi ei leitud vastavate ID-dega
+     */
     @Override
     public void addMovieToUserHistory(Long userId, Long movieId) {
         if (userId == null || movieId == null) {

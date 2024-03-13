@@ -40,7 +40,11 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    // Tagastame kasutaja emaili põhjal
+    /**
+     * Tagastab kasutaja emaili põhjal.
+     * @param email kasutaja email
+     * @return vastav kasutaja
+     */
     @GetMapping("/{email}")
     public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
         User user = userRepository.findByEmail(email);
@@ -51,7 +55,11 @@ public class UserController {
         }
     }
 
-    // Filmi lisamine kasutajale
+    /**
+     * Lisab filmi kasutaja ajalukku.
+     * @param userId kasutaja ID
+     * @param movieId filmi ID
+     */
     @PostMapping("/{userId}/addMovie/{movieId}")
     public void addMovieToUserHistory(@PathVariable Long userId, @PathVariable Long movieId) {
         System.out.println(String.format("Adding movie with %d to user %d history.", movieId, userId));
@@ -59,28 +67,33 @@ public class UserController {
         System.out.println(String.format("Movie with %d added to user %d history.", movieId, userId));
     }
 
+    /**
+     * Loob uue kasutaja.
+     * @param user loodav kasutaja
+     * @return vastus
+     * @throws Exception kui kasutaja loomisel tekib viga
+     */
     @PostMapping("/signup")
     public ResponseEntity<AuthResponse> createUserHandler(@RequestBody User user) throws Exception {
         String email = user.getEmail();
         String password = user.getPassword();
-
+        // Kontrollime, kas e-posti aadress on juba kasutusel
         User isEmailExist = userRepository.findByEmail(email);
         if (isEmailExist != null) {
             throw new Exception("Email Is Already Used With Another Account");
-
         }
+        // Loome uue kasutaja
         User createdUser = new User();
         createdUser.setEmail(email);
         createdUser.setPassword(passwordEncoder.encode(password));
         createdUser.setHistory(new ArrayList<>());
-
+        // Salvestame kasutaja
         User savedUser = userRepository.save(createdUser);
-        //userRepository.save(savedUser);
+        // Loome autentimise tokeni
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(email,password);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = JwtProvider.generateToken(authentication);
-
-
+        // Koostame vastuse
         AuthResponse authResponse = new AuthResponse();
         authResponse.setJwt(token);
         authResponse.setMessage("Register Success");
@@ -88,26 +101,34 @@ public class UserController {
         return new ResponseEntity<AuthResponse>(authResponse, HttpStatus.OK);
     }
 
+    /**
+     * Kasutaja sisselogimine.
+     * @param loginRequest kasutaja sisselogimise päring
+     * @return vastus
+     */
     @PostMapping("/signin")
     public ResponseEntity<AuthResponse> signin(@RequestBody User loginRequest) {
         String username = loginRequest.getEmail();
         String password = loginRequest.getPassword();
 
         System.out.println(username+"-------"+password);
-
+        // Autentime kasutaja
         UsernamePasswordAuthenticationToken authentication = authenticate(username,password);
         SecurityContextHolder.getContext().setAuthentication(authentication);
-
+        // Loome autentimise tokeni
         String token = JwtProvider.generateToken(authentication);
         AuthResponse authResponse = new AuthResponse();
-
+        // Koostame vastuse
         authResponse.setMessage("Login success");
         authResponse.setJwt(token);
         authResponse.setStatus(true);
 
         return new ResponseEntity<>(authResponse,HttpStatus.OK);
     }
-
+    /**
+     * Kasutaja välja logimine.
+     * @return vastav vastus
+     */
     @DeleteMapping("/logout")
     public ResponseEntity<String> logout() {
         SecurityContextHolder.clearContext();
@@ -116,7 +137,11 @@ public class UserController {
         return ResponseEntity.ok("Logout successful");
     }
 
-    // Tagastab kasutaja
+    /**
+     * Tagastab praeguse kasutaja.
+     * @param request HTTP päring
+     * @return vastav kasutaja
+     */
     @GetMapping("/me")
     public ResponseEntity<User> getCurrentUserEmail(HttpServletRequest request) {
         // Võtame jwt küpsistest
@@ -131,7 +156,7 @@ public class UserController {
                 }
             }
         }
-
+        // Kontrollime JWT-d
         if (jwt != null) {
             String email = JwtProvider.getEmailFromJwtToken(jwt);
 
@@ -140,11 +165,15 @@ public class UserController {
                 return ResponseEntity.ok(user);
             }
         }
+        // Vastus juhul, kui autentimine ebaõnnestus
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
-
-
-
+    /**
+     * Autentimine kasutaja poolt.
+     * @param username kasutajanimi
+     * @param password parool
+     * @return autentimise token
+     */
     private UsernamePasswordAuthenticationToken authenticate(String username, String password) {
 
         System.out.println(username+"---++----"+password);
@@ -152,7 +181,7 @@ public class UserController {
         UserDetails userDetails = userService.loadUserByUsername(username);
 
         System.out.println("Sig in in user details"+ userDetails);
-
+        // Kontrollime kasutajaandmeid
         if(userDetails == null) {
             System.out.println("Sign in details - null" + userDetails);
 
@@ -164,6 +193,7 @@ public class UserController {
             throw new BadCredentialsException("Invalid password");
 
         }
+        // Tagastame autentimise tokeni
         return new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
 
     }

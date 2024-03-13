@@ -16,6 +16,9 @@ import java.util.List;
 public class MovieService {
     private final MovieRepository movieRepository;
 
+    /**
+     * Algmeetod, mis käivitatakse pärast klassi loomist.
+     */
     @PostConstruct
     public void initialize() {
         addHardcodedMoviesToDatabase();
@@ -25,23 +28,44 @@ public class MovieService {
         this.movieRepository = movieRepository;
     }
 
+    /**
+     * Tagastab kõik filmid.
+     * @return kõikide filmide nimekiri
+     */
     public List<Movie> getAllMovies() {
         return movieRepository.findAll();
     }
-
+    /**
+     * Kustutab filmi.
+     * @param id kustutatava filmi ID
+     */
     public void deleteMovie(Long id) {
         movieRepository.deleteById(id);
     }
-
+    /**
+     * Tagastab filmi ID alusel.
+     * @param id filmi ID
+     * @return vastav film
+     */
     public Movie getMovieById(Long id) {
         return movieRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Movie not found with ID: " + id));
     }
-
+    /**
+     * Loob uue filmi.
+     * @param movie uus film
+     * @return loodud film
+     */
     public Movie createMovie(Movie movie) {
         return movieRepository.save(movie);
     }
 
+    /**
+     * Uuendab filmi andmeid.
+     * @param id uuendatava filmi ID
+     * @param movieDetails uuendatud filmi andmed
+     * @return uuendatud film
+     */
     public Movie updateMovie(Long id, Movie movieDetails) {
         Movie movie = getMovieById(id);
 
@@ -51,15 +75,19 @@ public class MovieService {
 
         return movieRepository.save(movie);
     }
-
-    // Filmide liamine andmebaasi
+    /**
+     * Filmide lisamine andmebaasi.
+     */
     public void addHardcodedMoviesToDatabase() {
         List<Movie> hardcodedMovies = getHardcodedMovies();
         for (Movie movie : hardcodedMovies) {
             createMovie(movie);
         }
     }
-    // Hardcoded filmid
+    /**
+     * Filmide loomine.
+     * @return hardcodetud filmide list.
+     */
     public List<Movie> getHardcodedMovies() {
         List<Movie> hardcodedMovies = new ArrayList<>();
         hardcodedMovies.add(new Movie(1L, "The Shawshank Redemption", "Drama", 70, 18, new Date(), "19:00", "Eesti"));
@@ -81,5 +109,4 @@ public class MovieService {
 
         return hardcodedMovies;
     }
-
 }

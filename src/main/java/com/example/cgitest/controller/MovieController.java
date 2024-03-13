@@ -18,31 +18,47 @@ public class MovieController {
         this.movieService = movieService;
     }
 
-    // Get all movies
+    /**
+     * Tagastab kõik filmid.
+     * @return kõikide filmide nimekiri
+     */
     @GetMapping
     public List<Movie> getAllMovies() {
         return movieService.getAllMovies();
     }
-
-    // Get a specific movie by ID
+    /**
+     * Filmi otsimine ID järgi.
+     * @param id filmi ID
+     * @return tagastab filmi.
+     */
     @GetMapping("/{id}")
     public Movie getMovieById(@PathVariable Long id) {
         return movieService.getMovieById(id);
     }
 
-    // Create a new movie
+    /**
+     * Loob uue filmi
+     * @param movie loodav film
+     * @return loodud film
+     */
     @PostMapping
     public Movie createMovie(@RequestBody Movie movie) {
         return movieService.createMovie(movie);
     }
-
-    // Update an existing movie
+    /**
+     * Uuendab olemasolevat filmi.
+     * @param id filmi ID, mida uuendatakse
+     * @param movie uuendatud filmiandmed
+     * @return uuendatud filmiandmed
+     */
     @PutMapping("/{id}")
     public Movie updateMovie(@PathVariable Long id, @RequestBody Movie movie) {
         return movieService.updateMovie(id, movie);
     }
-
-    // Delete a movie
+    /**
+     * Kustutab filmi ID alusel.
+     * @param id kustutatava filmi ID
+     */
     @DeleteMapping("/{id}")
     public void deleteMovie(@PathVariable Long id) {
 
