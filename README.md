@@ -15,7 +15,7 @@ Rakenduse backendiks on Spring Boot ja frontend React + TailwindCSS.
 1. Vaata, et oleks olemas NodeJS.
 2. Mine frontend folderisse `cd frontend`
 3. Installimiseks `npm install`
-4. Rakenduse käivitamiseks `npm run dev` (dev server) või `npm start`. Rakendus kasutab porti 5173.
+4. Rakenduse käivitamiseks `npm run dev` (dev server). Rakendus kasutab porti 5173.
 ## Rakenduse Funktsioonid 
 <br>
 
