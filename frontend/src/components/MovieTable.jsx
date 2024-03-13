@@ -28,12 +28,12 @@ function MovieTable({ movies, onBuyTicket, isLoggedIn, userHistory }) {
         setLangFilter(event.target.value);
     };
 
-    const handleRecommendMovies = () => {
-        // Arvutame iga žanri sageduse kasutaja vaadatud filmides
+    // Funktsioon, et arvutada žanrite sagedus kasutaja vaatamiste ajaloos.
+    const calculateGenreFrequency = () => {
         if (userHistory.length < 2) {
             window.alert("Ajaloos pole piisavalt filme või pole sisse logitud.");
             setShowScores(false);
-            return;
+            return {};
         }
         const genreFrequency = {};
         userHistory.forEach(movie => {
@@ -43,19 +43,21 @@ function MovieTable({ movies, onBuyTicket, isLoggedIn, userHistory }) {
                 genreFrequency[movie.genre] = 1;
             }
         });
+        return genreFrequency;
+    };
 
+    // 
+    const calculateGenreWeights = (genreFrequency) => {
         const totalMoviesInHistory = userHistory.length;
-
-        // Kasutaja ajaloo põhjal paneme igale žanrile kaalu
         const genreWeights = {};
         Object.keys(genreFrequency).forEach(genre => {
             genreWeights[genre] = genreFrequency[genre] / totalMoviesInHistory;
         });
+        return genreWeights;
+    };
 
-        console.log(genreWeights)
-
-        // Lisame tabelisse igale filmile kaalu
-        const moviesWithScores = movies.map(movie => {
+    const calculateMovieScores = (genreWeights) => {
+        return movies.map(movie => {
             let score = 0;
             Object.keys(genreWeights).forEach(genre => {
                 if (movie.genre === genre) {
@@ -64,13 +66,28 @@ function MovieTable({ movies, onBuyTicket, isLoggedIn, userHistory }) {
             });
             return { ...movie, score };
         });
+    };
 
-        // Sorteerime ja näitame filme soovitustes siis kui skoor on üle 0.
-        const recommendedMovies = moviesWithScores.filter(movie => movie.score > 0.0);
-        recommendedMovies.sort((a, b) => b.score - a.score);
+    const filterRecommendedMovies = (moviesWithScores) => {
+        return moviesWithScores.filter(movie => movie.score > 0.0);
+    };
+
+    const sortMoviesByScore = (recommendedMovies) => {
+        return recommendedMovies.sort((a, b) => b.score - a.score);
+    };
+
+    const handleRecommendMovies = () => {
+        const genreFrequency = calculateGenreFrequency();
+        if (Object.keys(genreFrequency).length === 0) {
+            return;
+        }
+        const genreWeights = calculateGenreWeights(genreFrequency);
+        const moviesWithScores = calculateMovieScores(genreWeights);
+        const recommendedMovies = filterRecommendedMovies(moviesWithScores);
+        const sortedRecommendedMovies = sortMoviesByScore(recommendedMovies);
 
         setShowScores(true);
-        setRecommendedMovies(recommendedMovies);
+        setRecommendedMovies(sortedRecommendedMovies);
     };
 
     // eemaldame kõik filtrid
