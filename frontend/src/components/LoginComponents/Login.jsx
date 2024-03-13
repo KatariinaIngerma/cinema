@@ -20,7 +20,6 @@ const LoginForm = ({ onBack }) => {
 
     const handleLoginSubmit = (event) => {
         event.preventDefault();
-        // Reset any previous errors
         setError(null);
         // Login
         axios.post('http://localhost:8080/auth/signin', { email, password })
@@ -38,12 +37,12 @@ const LoginForm = ({ onBack }) => {
 
     const handleRegisterSubmit = (event) => {
         event.preventDefault();
-        // Reset any previous errors
         setError(null);
         // Register
         axios.post('http://localhost:8080/auth/signup', { email, password })
             .then(response => {
                 console.log(response.data);
+                window.alert("Kasutaja loodud. Palun logi sisse!")
             })
             .catch(error => {
                 console.error('Registration error:', error);
@@ -55,8 +54,6 @@ const LoginForm = ({ onBack }) => {
         <div>
             <Header
                 isLoggedIn={isLoggedIn}
-                //onLogin={handleLoginSubmit}
-                // onLogout={handleLogout}
             />
             <h1 className="text-3xl font-bold mt-20 text-gray-700">Logi sisse või registreeru</h1>
             {error && <p className="text-red-500">{error}</p>} {/* Display error message if there's any */}

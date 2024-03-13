@@ -4,12 +4,10 @@ import com.example.cgitest.model.Movie;
 import com.example.cgitest.model.User;
 import com.example.cgitest.repository.MovieRepository;
 import com.example.cgitest.repository.UserRepository;
-import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
 import java.util.*;
 
 
@@ -25,27 +23,6 @@ public class UserServiceImplementation implements UserService {
         this.movieRepository = movieRepository;
         this.movieService = movieService;
     }
-
-    @PostConstruct
-    private void initializeUsers() {
-
-        // hardcodetud kasutajad
-        User user1 = new User(1L, "user1@example.com", "password1", new ArrayList<>());
-        User user2 = new User(2L, "user2@example.com", "password2", new ArrayList<>());
-        User user3 = new User(3L, "user3@example.com", "password3", new ArrayList<>());
-
-        // Salvestame kasutajad db
-        userRepository.save(user1);
-        userRepository.save(user2);
-        userRepository.save(user3);
-
-        //addMovieToUserHistory(user1.getId(), 1L);
-        //addMovieToUserHistory(user1.getId(), movieId2);
-        //addMovieToUserHistory(user1.getId(), movieId3);
-
-
-    }
-
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

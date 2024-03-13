@@ -33,13 +33,10 @@ public class UserController {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private UserServiceImplementation userService;
-    //@Autowired
-    //private UserService userService;
 
     // Tagastaame kõik kasutajad
     @GetMapping
     public List<User> getAllUsers() {
-
         return userService.getAllUsers();
     }
 

@@ -11,7 +11,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-
+//  https://www.geeksforgeeks.org/spring-security-login-page-with-react/
 public class JwtProvider {
     static SecretKey key = Keys.hmacShaKeyFor(JwtConstant.SECRET_KEY.getBytes());
 

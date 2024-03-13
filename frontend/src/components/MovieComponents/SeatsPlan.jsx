@@ -9,7 +9,7 @@ const SeatsPlan = ({ onSeatClick, onBack, numSelectedSeats, isLoggedIn, movie, u
     // genereerime juba broneeritud istekohad
     const generateRandomSeats = () => {
         const seatsMatrix = [];
-        const bookedSeats = 35; // 20 kohta on juba broneeritud
+        const bookedSeats = 25; // 25 kohta on juba broneeritud
 
         for (let i = 0; i < totalRows; i++) {
             const row = [];

@@ -35,7 +35,7 @@ function MovieHistoryTable({ userHistory }) {
     );
 }
 
-const Profile = () => {
+const Profile = ( ) => {
     const [email, setEmail] = useState("");
     const [userId, setUserId] = useState(null);
     const [isLoggedIn, setIsLoggedIn] = useState(null);

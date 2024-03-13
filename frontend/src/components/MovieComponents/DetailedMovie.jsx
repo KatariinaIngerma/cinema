@@ -37,7 +37,6 @@ function DetailedMovie({ movie, onBack, onSelectSeat }) {
                     const imdbId = response.data.search[0].imdbid;
                     setImdbId(imdbId);
                 }
-
             } catch (error) {
                 console.error('Error fetching IMDb ID:', error);
             }
@@ -50,7 +49,6 @@ function DetailedMovie({ movie, onBack, onSelectSeat }) {
     useEffect(() => {
         const fetchImdbScore = async () => {
             if (!imdbId) return;
-
             try {
                 const response = await axios.get('https://mdblist.p.rapidapi.com/', {
                     params: {
@@ -61,9 +59,7 @@ function DetailedMovie({ movie, onBack, onSelectSeat }) {
                         'X-RapidAPI-Host': 'mdblist.p.rapidapi.com'
                     }
                 });
-
                 const imdb = response.data.ratings.find(rating => rating.source === 'imdb');
-
                 if (imdb) {
                     setImdbRating(imdb.value);
                 }
@@ -89,9 +85,9 @@ function DetailedMovie({ movie, onBack, onSelectSeat }) {
             <p><strong>Kellaaeg:</strong> {movie.screeningTime}</p>
             <p><strong>IMDB:</strong> {imdbRating}</p>
             <h1 className="text-3xl font-bold m-5">2. Istekohtade arv</h1>
-            <div className="mt-5">
+            <div className="mt-5 m-3">
                 <label htmlFor="numSeats" className="mr-2">Vali istekohtade arv:</label>
-                <input type="number" id="numSeats" name="numSeats" min="2" value={numSeats} onChange={handleNumSeatsChange} autoFocus />
+                <input type="number" id="numSeats" name="numSeats" min="1" value={numSeats} onChange={handleNumSeatsChange} autoFocus />
             </div>
             <button onClick={onBack} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-5">Tagasi kinokavasse</button>
             <button onClick={handleSeatSelection} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2 mt-5">Istekohtasi valima</button>

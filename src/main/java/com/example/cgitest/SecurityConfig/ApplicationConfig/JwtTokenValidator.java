@@ -17,7 +17,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
-
+// https://www.geeksforgeeks.org/spring-security-login-page-with-react/
 
 import javax.crypto.SecretKey;
 import java.io.IOException;
